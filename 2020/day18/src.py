@@ -25,8 +25,7 @@ def solve_pt1(vstup):
                 stack.append(znak)
             elif znak == ")":
                 stack[-1] += znak
-                expresia = stack.pop()
-                vysledok_expr = solve(expresia)
+                vysledok_expr = solve(stack.pop())
                 if len(stack) == 0:
                     stack.append(vysledok_expr)
                 else:
@@ -77,8 +76,7 @@ def solve_pt2(vstup):
                 stack.append(znak)
             elif znak == ")":
                 stack[-1] += znak
-                expresia = stack.pop()
-                vysledok_expr = solve(expresia)
+                vysledok_expr = solve(stack.pop())
                 if len(stack) == 0:
                     stack.append(vysledok_expr)
                 else:
