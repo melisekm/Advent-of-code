@@ -1,0 +1,2 @@
+program najde riesenie pre velke vstupy aj pri pt2, ale ma velku zlozitost. je nutne optimalizovat pomocou CRT - 
+https://en.wikipedia.org/wiki/Chinese_remainder_theorem
