@@ -13,9 +13,6 @@ def solve_pt1(vstup):
             self.z = z
             self.symbol = symbol
 
-    def make_pos(x, y, z):
-        return f"{x},{y},{z}"
-
     def check_neighbors(point, priestor):
         active = 0
         for x in [-1, 0, 1]:
@@ -24,7 +21,7 @@ def solve_pt1(vstup):
                 new_y = point.y + y
                 for z in [-1, 0, 1]:
                     new_z = point.z + z
-                    suradnice = make_pos(new_x, new_y, new_z)
+                    suradnice = (new_x, new_y, new_z)
                     sused = priestor.get(suradnice, None)
                     if sused is None or sused == point:
                         continue
@@ -49,7 +46,7 @@ def solve_pt1(vstup):
                     new_y = point.y + y
                     for z in [-1, 0, 1]:
                         new_z = point.z + z
-                        suradnice = make_pos(new_x, new_y, new_z)
+                        suradnice = (new_x, new_y, new_z)
                         sused = orig.get(suradnice, None)
                         if sused is None:
                             orig[suradnice] = Point(new_x, new_y, new_z, INACTIVE)
@@ -64,7 +61,7 @@ def solve_pt1(vstup):
                 changed.symbol = symbol
                 to_change.append(changed)
         for changed in to_change:
-            pos = make_pos(changed.x, changed.y, changed.z)
+            pos = (changed.x, changed.y, changed.z)
             priestor[pos] = changed
 
     def vyries(priestor):
@@ -84,7 +81,7 @@ def solve_pt1(vstup):
             x = 0
             line = line.strip()
             for char in line:
-                pos = make_pos(x, y, 0)
+                pos = (x, y, 0)
                 priestor[pos] = Point(x, y, 0, char)
                 x += 1
             y += 1
@@ -104,9 +101,6 @@ def solve_pt2(vstup):
             self.w = w
             self.symbol = symbol
 
-    def make_pos(x, y, z, w):
-        return f"{x},{y},{z},{w}"
-
     def check_neighbors(point, priestor):
         active = 0
         for x in [-1, 0, 1]:
@@ -117,7 +111,7 @@ def solve_pt2(vstup):
                     new_z = point.z + z
                     for w in [-1, 0, 1]:
                         new_w = point.w + w
-                        suradnice = make_pos(new_x, new_y, new_z, new_w)
+                        suradnice = (new_x, new_y, new_z, new_w)
                         sused = priestor.get(suradnice, None)
                         if sused is None or sused == point:
                             continue
@@ -144,7 +138,7 @@ def solve_pt2(vstup):
                         new_z = point.z + z
                         for w in [-1, 0, 1]:
                             new_w = point.w + w
-                            suradnice = make_pos(new_x, new_y, new_z, new_w)
+                            suradnice = (new_x, new_y, new_z, new_w)
                             sused = orig.get(suradnice, None)
                             if sused is None:
                                 orig[suradnice] = Point(new_x, new_y, new_z, new_w, INACTIVE)
@@ -159,7 +153,7 @@ def solve_pt2(vstup):
                 changed.symbol = symbol
                 to_change.append(changed)
         for changed in to_change:
-            pos = make_pos(changed.x, changed.y, changed.z, changed.w)
+            pos = (changed.x, changed.y, changed.z, changed.w)
             priestor[pos] = changed
 
     def vyries(priestor):
@@ -179,7 +173,7 @@ def solve_pt2(vstup):
             x = 0
             line = line.strip()
             for char in line:
-                pos = make_pos(x, y, 0, 0)
+                pos = (x, y, 0, 0)
                 priestor[pos] = Point(x, y, 0, 0, char)
                 x += 1
             y += 1

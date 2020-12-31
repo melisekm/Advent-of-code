@@ -56,7 +56,7 @@ def solve_pt2(vstup):
     return vyries(cisla, stop, data[-1])
 
 
-vstup = "day15/vstup.txt"
+vstup = "vstup.txt"
 
 start = timeit.default_timer()
 result1 = solve_pt1(vstup)
