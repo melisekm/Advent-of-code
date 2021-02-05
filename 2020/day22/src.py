@@ -44,15 +44,15 @@ def solve_pt2(vstup):
     class Player:
         def __init__(self, desk):
             self.desk = desk
-            self.configurations = []
+            self.configurations = set()
 
     def playGame(p1, p2):
         end = len(p1.desk) + len(p2.desk)
         while len(p1.desk) != end and len(p2.desk) != end:
-            if p1.desk in p1.configurations or p2.desk in p2.configurations:
+            if tuple(p1.desk) in p1.configurations or tuple(p2.desk) in p2.configurations:
                 return (p1, 1)
-            p1.configurations.append(copy.deepcopy(p1.desk))
-            p2.configurations.append(copy.deepcopy(p2.desk))
+            p1.configurations.add(tuple(p1.desk))
+            p2.configurations.add(tuple(p2.desk))
             r1 = p1.desk.pop(0)
             r2 = p2.desk.pop(0)
             if len(p1.desk) >= r1 and len(p2.desk) >= r2:
