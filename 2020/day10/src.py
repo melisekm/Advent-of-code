@@ -35,7 +35,7 @@ def solve_pt2(vstup):
                 susedia.append(arr[idx + i])
         return susedia
 
-    def hladaj(j, kontent, slovnik, _max):
+    def hladaj(j, kontent, slovnik):
         global DP
         if not kontent:
             return 1
@@ -43,12 +43,12 @@ def solve_pt2(vstup):
             return DP[j]
         ans = 0
         for i in kontent:
-            ans += hladaj(i, slovnik[i], slovnik, _max)
+            ans += hladaj(i, slovnik[i], slovnik)
         DP[j] = ans
         return ans
 
-    def rob(slovnik, _max):
-        return hladaj(0, slovnik[0], slovnik, _max)
+    def rob(slovnik):
+        return hladaj(0, slovnik[0], slovnik)
 
     def vyries(arr):
         arr.append(0)
@@ -56,7 +56,7 @@ def solve_pt2(vstup):
         slovnik = {}
         for idx, cislo in enumerate(arr):
             slovnik[cislo] = najdi_susedov(arr, idx)
-        return rob(slovnik, max(arr))
+        return rob(slovnik)
 
     arr = []
     with open(vstup, "r") as file:
