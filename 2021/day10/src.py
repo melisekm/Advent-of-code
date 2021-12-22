@@ -18,10 +18,6 @@ mapa = {
     ">": "<"
 }
 
-opacna_mapa = {
-    "(": ")"
-}
-
 
 def solve_pt1():
     skore = {
