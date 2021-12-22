@@ -10,14 +10,14 @@ def load_input(file_name="in.txt"):
 
 
 def solve_pt1():
-    f = load_input()
-    for line in f:
+    data = load_input()
+    for line in data:
         pass
 
 
 def solve_pt2():
-    f = load_input()
-    for line in f:
+    data = load_input()
+    for line in data:
         pass
 
 
