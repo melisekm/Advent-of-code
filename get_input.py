@@ -9,8 +9,7 @@ parser.add_argument('--year', type=int, default=2021)
 parser.add_argument('--day', type=int, default=2)
 args = parser.parse_args()
 
-cmd = 'curl https://adventofcode.com/{}/day/{}/input --cookie "session={}"'.format(
-    args.year, args.day, SESSION)
+cmd = 'curl https://adventofcode.com/{}/day/{}/input --cookie "session={}"'.format(args.year, args.day, SESSION)
 output = subprocess.check_output(cmd, shell=True)
 output = output.decode('UTF-8')
 
