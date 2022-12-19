@@ -1,5 +1,6 @@
 import functools
-import timeit
+
+from utils import aoc_part
 
 
 def compare(left, right):
@@ -42,6 +43,7 @@ def load_input(file_name="in.txt"):
     return total
 
 
+@aoc_part(1)
 def solve_pt1():
     data = load_input()
     correct_indices = []
@@ -54,6 +56,7 @@ def solve_pt1():
     return sum(correct_indices)
 
 
+@aoc_part(2)
 def solve_pt2():
     data = load_input()
     flat_list = [item for sublist in data for item in sublist] + [[[2]], [[6]]]
@@ -61,13 +64,5 @@ def solve_pt2():
     return (flat_list.index([[2]]) + 1) * (flat_list.index([[6]]) + 1)
 
 
-def run_part(solve_fn, part_idx):
-    start = timeit.default_timer()
-    result = solve_fn()
-    end = timeit.default_timer()
-    print(result)
-    print(f"Total time pt{part_idx}: {(end - start):.3f} sec")
-
-
-run_part(solve_pt1, 1)
-run_part(solve_pt2, 2)
+solve_pt1()
+solve_pt2()

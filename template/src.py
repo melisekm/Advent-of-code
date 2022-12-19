@@ -1,4 +1,4 @@
-import timeit
+from utils import aoc_part
 
 
 def load_input(file_name="in.txt"):
@@ -9,26 +9,19 @@ def load_input(file_name="in.txt"):
     return res
 
 
+@aoc_part(1)
 def solve_pt1():
     data = load_input()
 
     pass
 
 
+@aoc_part(2)
 def solve_pt2():
     data = load_input()
 
     pass
 
 
-def run_part(solve_fn, part_idx):
-    start = timeit.default_timer()
-    result = solve_fn()
-    end = timeit.default_timer()
-    print(result)
-    print(f"Total time pt{part_idx}: {(end - start):.3f} sec")
-
-
-run_part(solve_pt1, 1)
-
-# run_part(solve_pt2, 2)
+solve_pt1()
+# solve_pt2()
