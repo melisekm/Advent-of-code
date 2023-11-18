@@ -1,3 +1,6 @@
-2020 - 25 puzzles, 22 attempted, 18 completed, 1 partially, 37/50 stars  
-2021 - 25 puzzles, 25 attempted, 19 fully completed, 4 partially, 42/50 stars  
-2022 - 25 puzzles, 25 attempted, 20 fully completed, 3 partially, 43/50 stars
+| **Year** | **# Puzzles** | **# Attempted** | **⭐⭐** | **⭐** | **⭐ Total** |
+|:--------:|:-------------:|:---------------:|:-------------:|:------------:|:---------------:|
+|   2020   |       25      |        22       |       18      |       1      |      37/50      |
+|   2021   |       25      |        25       |       19      |       4      |      42/50      |
+|   2022   |       25      |        25       |       20      |       3      |      43/50      |
+|   2023   |       25      |        ??       |       ??      |       ?      |      ??/50      |
