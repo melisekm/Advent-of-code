@@ -3,7 +3,7 @@ from utils import aoc_part
 
 def load_input(file_name="in.txt"):
     res = []
-    with open(file_name) as f:
+    with open(file_name, encoding='UTF-8') as f:
         for line in f:
             res.append(line.strip())
     return res
