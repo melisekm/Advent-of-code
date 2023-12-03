@@ -5,7 +5,8 @@ def load_input(file_name="in.txt"):
     res = []
     with open(file_name, encoding='UTF-8') as f:
         for line in f:
-            res.append(line.strip())
+            line = line.strip()
+            res.append(line)
     return res
 
 
