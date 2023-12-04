@@ -1,8 +1,9 @@
+import math
+import re
 from collections import defaultdict
 from functools import lru_cache
 
 from utils import aoc_part
-import re
 
 
 def load_input(file_name="in.txt"):
@@ -10,45 +11,29 @@ def load_input(file_name="in.txt"):
     with open(file_name, encoding='UTF-8') as f:
         for line in f:
             line = line.strip().split(":")[1].split("|")
-            res.append(line)
-    return res
-
-
-@aoc_part(1)
-def solve_pt1():
-    data = load_input()
-    res = 0
-    for card in data:
-        winning = re.findall(r"\d+", card[0])
-        got = re.findall(r"\d+", card[1])
-        wining_cnt = 0
-        for g in got:
-            if g in winning:
-                wining_cnt += 1
-        if wining_cnt:
-            res += (2 ** (wining_cnt - 1))
-
+            res.append(tuple(line))
     return res
 
 
 @lru_cache(maxsize=None)
-def calc(card_id, card):
+def calc(_, card):
     winning = re.findall(r"\d+", card[0])
     got = re.findall(r"\d+", card[1])
-    wining_cnt = 0
-    for g in got:
-        if g in winning:
-            wining_cnt += 1
-    return wining_cnt
+    return sum(g in winning for g in got)
+
+
+@aoc_part(1)
+def solve_pt1():
+    # calc for all, if calc is 0, then instead of 2^(-1) = 0.5 floor it to 0
+    return sum(math.floor(2 ** (calc(0, card) - 1)) for card in load_input())
 
 
 def card_cnt(idx, data, counts):
-    card_id = idx + 1
-    card = data[idx]
-    counts[card_id] += 1
-    wining_cnt = calc(idx, tuple(card))
-    for i, card in enumerate(data[idx + 1:idx + wining_cnt + 1], start=idx + 1):
-        card_cnt(i, data, counts)
+    counts[idx + 1] += 1  # get real card id
+    winning_cnt = calc(idx, data[idx])  # calculate data for current card
+    # start at next card and go until <= winning_cnt
+    for i, _ in enumerate(data[idx + 1:idx + winning_cnt + 1], start=idx + 1):
+        card_cnt(i, data, counts)  # i == index of card in data
 
 
 @aoc_part(2)
@@ -60,5 +45,5 @@ def solve_pt2():
     return sum(counts.values())
 
 
-# solve_pt1()
+solve_pt1()
 solve_pt2()
