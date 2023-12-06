@@ -27,7 +27,7 @@ def solve_pt1():
         location = seed
         for point in data:
             nums = resolve_nums(tuple(point[1:]))
-            for idx, line in enumerate(nums, start=1):
+            for line in nums:
                 dst, src, leng = line
                 if src <= location < src + leng:
                     location += dst - src
@@ -62,11 +62,11 @@ def solve_pt2():
     for holder in holders:
         for point in data:
             nums = resolve_nums(tuple(point[1:]))
-            for line_idx, line in enumerate(nums, start=1):
+            for line in nums:
                 dst, src_start, leng = line
                 src_end = src_start + leng - 1
                 shift = dst - src_start
-                for idx, interval in enumerate(holder[:]):
+                for interval in holder[:]:
                     if src_start > interval.end or src_end < interval.start:
                         continue
 
