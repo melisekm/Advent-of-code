@@ -43,3 +43,47 @@ def _format_time(timespan, precision=3):
     else:
         order = 3
     return "%.*g %s" % (precision, timespan * scaling[order], units[order])
+
+
+def generic_parallel_execution(func, data, *fn_args, workers=4, executor="process", add_pbar=False, **fn_kwargs):
+    from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+    import numpy as np
+
+    if executor == "process":
+        executor_type = ProcessPoolExecutor
+    elif executor == "thread":
+        executor_type = ThreadPoolExecutor
+    else:
+        raise Exception(f"Executor {executor} not supported")
+
+    space = np.linspace(0, len(data), workers + 1, dtype=int)
+    with executor_type(max_workers=workers) as executor:
+        futures = set()
+        for i in range(workers):
+            if add_pbar:
+                fn_kwargs["pbar_position"] = i
+            future = executor.submit(func, data[space[i]: space[i + 1]], *fn_args, **fn_kwargs)
+            print(f"Starting worker {future}")
+            futures.add(future)
+
+    results = []
+    for future in as_completed(futures):
+        try:
+            results.append(future.result())
+        except Exception as e:
+            print(f"{future} generated an exception: {e}")
+        else:
+            print(f"Joining worker {future}")
+    return results
+
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        print(f"Starting '{func.__qualname__}'...")
+        start_time = timeit.default_timer()
+        result = func(*args, **kwargs)
+        end_time = timeit.default_timer()
+        print(f"Task: '{func.__qualname__}' done. Runtime: {end_time - start_time:.2f}s")
+        return result
+
+    return wrapper
