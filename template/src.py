@@ -17,11 +17,11 @@ def solve_pt1():
     pass
 
 
-@aoc_part(2)
-def solve_pt2():
-    data = load_input()
-
-    pass
+# @aoc_part(2)
+# def solve_pt2():
+#     data = load_input()
+#
+#     pass
 
 
 solve_pt1()
