@@ -45,9 +45,31 @@ def _format_time(timespan, precision=3):
     return "%.*g %s" % (precision, timespan * scaling[order], units[order])
 
 
+def _linspace(start, stop, num, endpoint=True):
+    num = int(num)
+    start *= 1.
+    stop *= 1.
+
+    if num == 1:
+        yield stop
+        return
+    if endpoint:
+        step = (stop - start) / (num - 1)
+    else:
+        step = (stop - start) / num
+
+    for i in range(num):
+        yield start + step * i
+
+def linspace(start, stop, num, endpoint=True, integer=True):
+    if integer:
+        return list(map(int, _linspace(start, stop, num, endpoint)))
+    else:
+        return list(_linspace(start, stop, num, endpoint))
+
+
 def generic_parallel_execution(func, data, *fn_args, workers=4, executor="process", add_pbar=False, **fn_kwargs):
     from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
-    import numpy as np
 
     if executor == "process":
         executor_type = ProcessPoolExecutor
@@ -55,8 +77,7 @@ def generic_parallel_execution(func, data, *fn_args, workers=4, executor="proces
         executor_type = ThreadPoolExecutor
     else:
         raise Exception(f"Executor {executor} not supported")
-
-    space = np.linspace(0, len(data), workers + 1, dtype=int)
+    space = linspace(0, len(data), workers + 1)
     with executor_type(max_workers=workers) as executor:
         futures = set()
         for i in range(workers):
