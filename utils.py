@@ -61,6 +61,7 @@ def _linspace(start, stop, num, endpoint=True):
     for i in range(num):
         yield start + step * i
 
+
 def linspace(start, stop, num, endpoint=True, integer=True):
     if integer:
         return list(map(int, _linspace(start, stop, num, endpoint)))
