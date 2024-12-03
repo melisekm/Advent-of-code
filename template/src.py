@@ -23,6 +23,6 @@ def solve_pt1():
 #
 #     pass
 
-
-solve_pt1()
-# solve_pt2()
+if __name__ == '__main__':
+    solve_pt1()
+    # solve_pt2()
