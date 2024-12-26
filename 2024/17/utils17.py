@@ -1,26 +1,27 @@
-from genetic import Chromosome
-
 import dataclasses
 import re
 
-from utils import aoc_part
+
+def make_output(output: list[int]):
+    return int("".join(map(str, output)))
 
 
-def load_input(file_name="in.txt"):
+def load_input(file_name="in.txt") -> list[int]:
     with open(file_name) as f:
         registers, program = f.read().split("\n\n")
-        return (
-            list(map(int, re.findall(r'\d+', registers))),
-            list(map(int, re.findall(r'\d+', program)))
-        )
+        return list(map(int, re.findall(r'\d+', program)))
+
+
+program = load_input()
+expected_output = make_output(program)
 
 
 @dataclasses.dataclass
 class CPU:
     A: int
-    B: int
-    C: int
-    ptr: int
+    B: int = 0
+    C: int = 0
+    ptr: int = 0
     output: list[int] = dataclasses.field(default_factory=list)
 
     def __post_init__(self):
@@ -66,34 +67,3 @@ class CPU:
 
     def cdv(self, lit):
         self.C = self.dv(lit)
-
-
-@aoc_part(1)
-def solve_pt1():
-    registers, program = load_input()
-    print(registers[0])
-    cpu = CPU(*registers, 0)
-    while cpu.ptr < len(program):
-        opcode, operand = program[cpu.ptr], program[cpu.ptr + 1]
-        fn = cpu.op_map[opcode]
-        fn(operand)
-        if opcode == 3 and cpu.A != 0:
-            continue
-        cpu.ptr += 2
-    return ",".join(map(str, cpu.output))
-
-def try_stuff(pos, x):
-    for i in range(0,7):
-        x.data[pos] = i
-        print(Chromosome(x.data))
-
-@aoc_part(2)
-def solve_pt2():
-    for pos in range(0,16):
-        for i in range(0,8):
-            try_stuff(pos, Chromosome([5, 6, 2, 2, 3, 5, 0, 1, 3, 4, 0, 3, 6, 0, 1, 7]))
-
-
-if __name__ == '__main__':
-    solve_pt1()
-    # solve_pt2()
